@@ -4,6 +4,30 @@ import {
   Route,
   Link,
 } from 'react-router-dom'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+
+import createHistory from 'history/createBrowserHistory'
+import reduxThunk from 'redux-thunk'
+
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+import reducers from '../reducers' // Or wherever you keep your reducers
+
+const history = createHistory()
+
+const configureStore = (initialState) => {
+  return createStore(
+    reducers,
+    initialState,
+    compose(
+      applyMiddleware(reduxThunk),
+      applyMiddleware(routerMiddleware(history)),
+      window.devToolsExtension ? window.devToolsExtension() : f => f,
+    ),
+  )
+}
+const store = configureStore()
 
 import Home from './Home'
 import Lodex from './Lodex'
@@ -31,36 +55,46 @@ const Body = styled.div`
 `
 
 const Logo = styled.div`
-  width: 260px;
-  font-size: 20px;
-  padding: 14px;
+  font-size: 16px;
+  margin-right: 16px;
 `
 
 const TopBar = styled.div`
   position: relative;
-  background: white;
-  display: flex;
   flex: 0 0 auto;
   flex-direction: row;
   height: 50px;
+  padding: 0 15px;
   transition: all .15s ${cubicBezier};
-  box-shadow: 0 0 1px rgba(76, 86, 103, .25), 0 2px 18px rgba(31, 37, 50, .32);
+  color: #f5f8fa;
+  background-color: #394b59;
+  box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2), 0 1px 1px rgba(16, 22, 26, 0.4);
+`
+
+const TopBarLeft = styled.div`
+  display: flex;
+  float: left;
+  align-items: center;
+  height: 50px;
 `
 
 const NavbarLink = styled(Link)`
   display: block;
-  color: ${variables.color.gray9};
   cursor: pointer;
-  padding: 8px 16px;
+  color: #f5f8fa;
+  height: 30px;
+  line-height: 28px;
+  padding: 0 10px;
+  vertical-align: middle;
+  font-size: 14px;
   border-radius: 3px;
   transition: all .25s ${cubicBezier};
   border: 1px solid transparent;
   text-decoration: none;
   &:hover {
-    color: ${variables.color.gray9};
+    color: #f5f8fa;
+    background: rgba(138, 155, 168, .15);
     text-decoration: none;
-    border: 1px solid ${variables.color.gray6};
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05), 0 1px rgba(255, 255, 255, .75);
   }
 `
 
@@ -69,52 +103,57 @@ const NavbarItem = styled.div`
 `
 
 const Navbar = styled.div`
-  flex: 1;
-  text-align: right;
+  float: right;
   padding: 8px 16px;
   ${NavbarItem} + ${NavbarItem} {
     margin-left: 10px;
   }
 `
 
+
+
 const Root = () => (
-  <Router>
-    <Layout>
-      <TopBar>
-        <Logo>
-          ERAKiS
-        </Logo>
-        <Navbar>
-          <NavbarItem>
-            <NavbarLink
-              to="/"
-            >
-              첫 화면
-            </NavbarLink>
-          </NavbarItem>
-          <NavbarItem>
-            <NavbarLink
-              to="/lodex"
-            >
-              LODEX
-            </NavbarLink>
-          </NavbarItem>
-          <NavbarItem>
-            <NavbarLink
-              to="/lodchat"
-            >
-              LOD 챗
-            </NavbarLink>
-          </NavbarItem>
-        </Navbar>
-      </TopBar>
-      <Body>
-        <Route exact path="/" component={Home} />
-        <Route path="/lodex" component={Lodex} />
-        <Route path="/lodchat" component={LodChat} />
-      </Body>
-    </Layout>
-  </Router>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Layout>
+        <TopBar>
+          <TopBarLeft>
+            <Logo>
+              ERAKiS
+            </Logo>
+          </TopBarLeft>
+          <Navbar>
+            <NavbarItem>
+              <NavbarLink
+                to="/"
+              >
+                첫 화면
+              </NavbarLink>
+            </NavbarItem>
+            <NavbarItem>
+              <NavbarLink
+                to="/lodex"
+              >
+                LODEX
+              </NavbarLink>
+            </NavbarItem>
+            <NavbarItem>
+              <NavbarLink
+                to="/lodchat"
+              >
+                LOD 챗
+              </NavbarLink>
+            </NavbarItem>
+          </Navbar>
+        </TopBar>
+        <Body>
+          <Route exact path="/" component={Home} />
+          <Route path="/lodex" component={Lodex} />
+          <Route path="/lodchat" component={LodChat} />
+        </Body>
+      </Layout>
+    </ConnectedRouter>
+  </Provider>
 )
 
 export default Root

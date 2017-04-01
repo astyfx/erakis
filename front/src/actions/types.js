@@ -1,0 +1,3 @@
+// auth
+export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
+export const RECEIVE_AUTH_USER = 'RECEIVE_AUTH_USER'
