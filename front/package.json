@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --hot --history-api-fallback --open"
+    "dev": "webpack-dev-server --hot --history-api-fallback --open --port 8888",
+    "build": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

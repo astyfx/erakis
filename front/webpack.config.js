@@ -1,17 +1,22 @@
 const webpack = require('webpack')
 const path = require('path')
 
+const entry = process.env.NODE_ENV === 'production' ? [
+  'babel-polyfill',
+  './src/index'
+] : [
+  'react-hot-loader/patch',
+  'babel-polyfill',
+  './src/index'
+]
+
 module.exports = {
   devtool: 'source-map',
   entry: {
-    'app': [
-      'babel-polyfill',
-      'react-hot-loader/patch',
-      './src/index'
-    ]
+    'app': entry
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, '../main/static'),
     filename: '[name].js'
   },
   module: {
