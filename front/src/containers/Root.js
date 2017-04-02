@@ -4,7 +4,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom'
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { compose, createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
 import createHistory from 'history/createBrowserHistory'

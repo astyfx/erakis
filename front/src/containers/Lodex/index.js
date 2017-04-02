@@ -1,8 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import styled from 'styled-components'
 
 import { LayoutFlex } from '../../components/Layout'
+import Card from '../../components/Card'
+
+import {
+  fetchLodex,
+} from '../../actions'
 
 import {
   globalStyles,
@@ -37,8 +43,17 @@ const MenuItem = styled.li`
   }
 `
 
+const Dicers = styled.div`
+  flex: 1;
+`
+
 class Lodex extends React.Component {
+  componentWillMount() {
+    this.props.fetchLodex()
+  }
   render() {
+    const { lodex } = this.props
+
     return (
       <LayoutFlex>
         <SideBar>
@@ -49,11 +64,35 @@ class Lodex extends React.Component {
           </Menu>
         </SideBar>
         <Content>
-          여긴 도감 나올껴
+          <Dicers>
+            {lodex.items.map(dicer => {
+              console.log(dicer)
+              return (
+                <Card>
+                  <div>
+                    <img
+                      src={dicer.imageThumbnail}
+                      alt=""
+                    />
+                    <h3>{dicer.name} / {dicer.grade}성</h3>
+                    <h4>{dicer.attackType} / {dicer.diceType} / {dicer.chargeType}</h4>
+                  </div>
+                </Card>
+              )
+            })}
+          </Dicers>
         </Content>
       </LayoutFlex>
     )
   }
 }
 
-export default Lodex
+const mapStateToProps = (state) => {
+  return {
+    lodex: state.lodex,
+  }
+}
+
+export default connect(mapStateToProps, {
+  fetchLodex,
+})(Lodex)

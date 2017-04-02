@@ -2,8 +2,7 @@ from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 import jwt
 from rest_framework_jwt.settings import api_settings
-from api import exceptions
-from api.models import Application
+from main.models import User
 
 
 def jwt_payload_handler(user):
@@ -51,7 +50,7 @@ def jwt_decode_handler(token):
   )
 
 
-def jwt_response_payload_handler(token, user=None, application_id=None, request=None):
+def jwt_response_payload_handler(token, user=None, request=None):
   """
   Returns the response data for both the login and refresh views.
   Override to return a custom response such as including the
@@ -72,5 +71,4 @@ def jwt_response_payload_handler(token, user=None, application_id=None, request=
     'user': {
       'email': user.email
     },
-    'application_id': application_id
   }
