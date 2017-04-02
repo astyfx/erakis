@@ -5,6 +5,17 @@ import styled from 'styled-components'
 
 import { LayoutFlex } from '../../components/Layout'
 import Card from '../../components/Card'
+import {
+  Table,
+  Header,
+  Body,
+  Row,
+  Column,
+  ColumnFlex,
+} from '../../components/Table'
+import Checkbox from '../../components/Checkbox'
+
+import DicerRow from './DicerRow'
 
 import {
   fetchLodex,
@@ -45,14 +56,75 @@ const MenuItem = styled.li`
 
 const Dicers = styled.div`
   flex: 1;
+  display: flex;
+  ${Table} {
+    flex: 1;
+  }
 `
 
 class Lodex extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      checked: props.lodex.items.map(() => false),
+      selectedItems: [],
+      isAllChecked: false,
+    }
+
+    this.setCheckboxStatus = this.setCheckboxStatus.bind(this)
+    this.selectAll = this.selectAll.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+  }
+
   componentWillMount() {
     this.props.fetchLodex()
   }
+
+  setCheckboxStatus(checked, selectedItems) {
+    this.setState({
+      checked,
+      selectedItems,
+      isAllChecked: checked.filter((c) => {
+        return c
+      }).length === checked.length || checked.filter((c) => {
+        return !c
+      }).length === checked.length,
+    })
+  }
+
+  selectAll(checked) {
+    // Set all checked states to true
+    const checkedAll = [...this.state.checked].map(() => checked)
+    const selectedItems = checked ? this.props.lodex.items : []
+
+    this.setState({
+      checked: checkedAll,
+      isAllChecked: true,
+      selectedItems,
+    })
+  }
+
+  handleCheckboxChange(nextCheck, index, item) {
+    const checked = [...this.state.checked]
+    checked[index] = nextCheck
+
+    const selectedItems = nextCheck ? [...this.state.selectedItems, item] : this.state.selectedItems.filter(selected => {
+      return selected !== item
+    })
+
+    this.setCheckboxStatus(checked, selectedItems)
+  }
+
   render() {
     const { lodex } = this.props
+
+    const {
+      isAllChecked,
+      checked,
+    } = this.state
+
+    const checkedLength = checked.filter(checkedItem => checkedItem === true).length
 
     return (
       <LayoutFlex>
@@ -65,21 +137,60 @@ class Lodex extends React.Component {
         </SideBar>
         <Content>
           <Dicers>
-            {lodex.items.map(dicer => {
-              console.log(dicer)
-              return (
-                <Card>
-                  <div>
-                    <img
-                      src={dicer.imageThumbnail}
-                      alt=""
+            <Table>
+              <Header>
+                <Column
+                  width="38px"
+                >
+                  <Checkbox
+                    onClick={() => {
+                      this.selectAll(!(checkedLength !== 0 && isAllChecked))
+                    }}
+                    checked={checkedLength !== 0 && isAllChecked}
+                  />
+                </Column>
+                <Column
+                  width="62px"
+                >
+                  ID
+                </Column>
+                <Column
+                  width="80px"
+                >
+                  ICON
+                </Column>
+                <Column
+                  width="132px"
+                >
+                  NAME / GRADE
+                </Column>
+                <ColumnFlex>
+                  ATTACK TYPE
+                </ColumnFlex>
+                <ColumnFlex>
+                  DICE TYPE
+                </ColumnFlex>
+                <ColumnFlex>
+                  CHARGE TYPE
+                </ColumnFlex>
+              </Header>
+              <Body>
+                {lodex.items.map((dicer, index) => {
+                  return (
+                    <DicerRow
+                      key={`dicer_${dicer.id}`}
+                      item={dicer}
+                      checked={checked}
+                      index={index}
+                      handleCheckboxChange={this.handleCheckboxChange}
+                      onClick={() => {
+
+                      }}
                     />
-                    <h3>{dicer.name} / {dicer.grade}성</h3>
-                    <h4>{dicer.attackType} / {dicer.diceType} / {dicer.chargeType}</h4>
-                  </div>
-                </Card>
-              )
-            })}
+                  )
+                })}
+              </Body>
+            </Table>
           </Dicers>
         </Content>
       </LayoutFlex>

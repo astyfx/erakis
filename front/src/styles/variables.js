@@ -17,6 +17,8 @@ export default {
     gray7: '#495057',
     gray8: '#343a40',
     gray9: '#212529',
+
+    blue7: '#1c7cd6',
   },
   fontFamily: {
     hanSans: '\'Han Sans\', \'Helvetica Neue\', helvetica, Arial, sans-serif',
