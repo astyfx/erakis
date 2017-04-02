@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import pymysql
+
+pymysql.install_as_MySQLdb()
 from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,6 +30,7 @@ SECRET_KEY = 'kgytc5awx#x1h=@b7__0f%a#81(yr(xv!ld^9abi1az=r9(^34'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '192.168.56.64',
     'localhost',
     'localtest.me'
 ]
@@ -158,8 +162,8 @@ STATIC_URL = '/static/'
 SENDBIRD_API_URL = 'https://api.sendbird.com/'
 
 import socket
-if socket.gethostname() is 'astyfx':
-    DEBUG = False
+if socket.gethostname() == 'astyfx':
+    DEBUG = False 
     STATIC_URL = '/'
     DATABASES = {
         'default': {

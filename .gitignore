@@ -156,3 +156,5 @@ ENV/
 .ropeproject
 
 # End of https://www.gitignore.io/api/node,python
+
+shared/
