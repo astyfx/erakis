@@ -161,3 +161,13 @@ import socket
 if socket.gethostname() is 'astyfx':
     DEBUG = False
     STATIC_URL = '/'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'erakis',
+            'USER': 'root',
+            'PASSWORD': 'dotmxl',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
