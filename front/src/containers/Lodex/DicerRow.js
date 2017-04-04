@@ -9,48 +9,43 @@ import {
 
 const DiceImage = styled.div`
   display: inline-block;
-`
-
-const Dice4 = styled(DiceImage)`
-  width: 40px;
-  height: 36px;
-  background-size: 192px;
-  background-position: 152px 60px;
-  background-image: url(https://github.com/astyfx/erakis/blob/master/main/static/images/dice_4.png?raw=true);
-`
-const Dice6 = styled(DiceImage)`
-  width: 40px;
-  height: 36px;
-  background-size: 192px;
-  background-position: 152px 60px;
-  background-image: url(https://github.com/astyfx/erakis/blob/master/main/static/images/dice_6.png?raw=true);
-`
-const Dice10 = styled(DiceImage)`
-  width: 40px;
-  height: 36px;
-  background-size: 192px;
-  background-position: 152px 60px;
-  background-image: url(https://github.com/astyfx/erakis/blob/master/main/static/images/dice_10.png?raw=true);
+  background-image: url(https://github.com/astyfx/erakis/blob/master/main/static/images/dicelist.png?raw=true);
+  ${props => {
+    if (props.dice === '4') {
+      return css`
+        width: 40px;
+        height: 55px;
+        background-position: 152px 0;
+      `
+    } else if (props.dice === '44') {
+      return css`
+        width: 40px;
+        height: 55px;
+        background-position: 152px 0;
+      `
+    } else if (props.dice === '6') {
+      return css`
+        width: 40px;
+        height: 55px;
+        background-position: 152px 0;
+      `
+    } else if (props.dice === '66') {
+      return css`
+        width: 40px;
+        height: 55px;
+        background-position: 152px 0;
+      `
+    } else if (props.dice === '10') {
+      return css`
+        width: 40px;
+        height: 55px;
+        background-position: 152px 0;
+      `
+    }
+  }}
 `
 
 class DicerRow extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.renderDice = this.renderDice.bind(this)
-  }
-
-  renderDice(dicer) {
-    if (dicer.diceType === '44') {
-      return (
-        <div>
-          <Dice4 />
-          <Dice4 />
-        </div>
-      )
-    }
-  }
-
   render() {
     const {
       item,
@@ -105,7 +100,9 @@ class DicerRow extends React.Component {
         <ColumnFlex
           onClick={e => { this.props.onClick(item) }}
         >
-          {this.renderDice(item)}
+          <DiceImage
+            dice={item.diceType}
+          />
         </ColumnFlex>
         <ColumnFlex
           onClick={e => { this.props.onClick(item) }}
