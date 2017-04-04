@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-token-auth/', obtain_jwt_token),
-    url(r'^.*/$', views.index),
+    url(r'^.*/?$', views.index),
 ]
