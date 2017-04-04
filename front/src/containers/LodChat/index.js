@@ -44,12 +44,12 @@ class LodChat extends React.Component {
         <SideBar>
           <Menu>
             <MenuItem>
-              여긴 채널 리스트
+              대화방 목록 부분
             </MenuItem>
           </Menu>
         </SideBar>
         <Content>
-          여긴 채팅방 화면
+          대화방 화면
         </Content>
       </LayoutFlex>
     )

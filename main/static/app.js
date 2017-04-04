@@ -19392,14 +19392,14 @@ var LodChat = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               MenuItem,
               null,
-              '\uC5EC\uAE34 \uCC44\uB110 \uB9AC\uC2A4\uD2B8'
+              '\uB300\uD654\uBC29 \uBAA9\uB85D \uBD80\uBD84'
             )
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           Content,
           null,
-          '\uC5EC\uAE34 \uCC44\uD305\uBC29 \uD654\uBA74'
+          '\uB300\uD654\uBC29 \uD654\uBA74'
         )
       );
     }
@@ -19546,7 +19546,7 @@ var DicerRow = function (_React$Component) {
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(DiceImage, {
-            dice: '6'
+            dice: item.diceType
           })
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

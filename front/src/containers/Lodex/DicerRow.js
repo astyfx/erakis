@@ -111,7 +111,7 @@ class DicerRow extends React.Component {
           onClick={e => { this.props.onClick(item) }}
         >
           <DiceImage
-            dice={'6'}
+            dice={item.diceType}
           />
         </ColumnFlex>
         <ColumnFlex
