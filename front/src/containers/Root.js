@@ -127,21 +127,21 @@ const Root = () => (
               <NavbarLink
                 to="/"
               >
-                첫 화면
+                홈
               </NavbarLink>
             </NavbarItem>
             <NavbarItem>
               <NavbarLink
                 to="/lodex"
               >
-                LODEX
+                도감
               </NavbarLink>
             </NavbarItem>
             <NavbarItem>
               <NavbarLink
                 to="/lodchat"
               >
-                LOD 챗
+                대화방
               </NavbarLink>
             </NavbarItem>
           </Navbar>

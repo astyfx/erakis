@@ -42,12 +42,14 @@ const Content = styled.div`
 `
 
 const Menu = styled.ul`
-  padding: 0 16px;
+  padding: 0;
 `
 
 const MenuItem = styled.li`
   list-style: none;
   transition: all .25s ${cubicBezier};
+  padding: 4px 16px;
+  margin: 8px 0;
   &:hover {
     cursor: pointer;
     background: ${variables.color.azureishWhite};
@@ -131,7 +133,13 @@ class Lodex extends React.Component {
         <SideBar>
           <Menu>
             <MenuItem>
-              도감 메뉴
+              5성 다이서
+            </MenuItem>
+            <MenuItem>
+              4성 다이서
+            </MenuItem>
+            <MenuItem>
+              3성 다이서
             </MenuItem>
           </Menu>
         </SideBar>
@@ -139,7 +147,7 @@ class Lodex extends React.Component {
           <Dicers>
             <Table>
               <Header>
-                <Column
+                {/* <Column
                   width="38px"
                 >
                   <Checkbox
@@ -153,25 +161,25 @@ class Lodex extends React.Component {
                   width="62px"
                 >
                   ID
-                </Column>
+                </Column> */}
                 <Column
                   width="80px"
                 >
-                  ICON
+                  이미지
                 </Column>
                 <Column
                   width="132px"
                 >
-                  NAME / GRADE
+                  이름 / 등급
                 </Column>
                 <ColumnFlex>
-                  ATTACK TYPE
+                  타입
                 </ColumnFlex>
                 <ColumnFlex>
-                  DICE TYPE
+                  주사위
                 </ColumnFlex>
                 <ColumnFlex>
-                  CHARGE TYPE
+                  차지
                 </ColumnFlex>
               </Header>
               <Body>

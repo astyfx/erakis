@@ -10,36 +10,29 @@ import {
 const DiceImage = styled.div`
   display: inline-block;
   background-image: url(https://github.com/astyfx/erakis/blob/master/main/static/images/dicelist.png?raw=true);
+  background-repeat: no-repeat;
+  width: 56px;
+  height: 56px;
   ${props => {
     if (props.dice === '4') {
       return css`
-        width: 40px;
-        height: 55px;
-        background-position: 152px 0;
+        background-position: -114px 0;
       `
     } else if (props.dice === '44') {
       return css`
-        width: 40px;
-        height: 55px;
-        background-position: 152px 0;
+        background-position: 0 0;
       `
     } else if (props.dice === '6') {
       return css`
-        width: 40px;
-        height: 55px;
-        background-position: 152px 0;
+        background-position: -176px 0;
       `
     } else if (props.dice === '66') {
       return css`
-        width: 40px;
-        height: 55px;
-        background-position: 152px 0;
+        background-position: -57px 0;
       `
     } else if (props.dice === '10') {
       return css`
-        width: 40px;
-        height: 55px;
-        background-position: 152px 0;
+        background-position: -232px 0;
       `
     }
   }}
@@ -54,11 +47,28 @@ class DicerRow extends React.Component {
       handleCheckboxChange,
     } = this.props
 
+    const renderAttack = (attackType) => {
+      switch (attackType) {
+        case 'MELEE':
+          return '주먹'
+        case 'MAGIC':
+          return '마법'
+        case 'SPEAR':
+          return '관통'
+        case 'SNIPER':
+          return '저격'
+        case 'WHIRLWIND':
+          return '휠윈드'
+        case 'BOMBER':
+          return '폭격'
+      }
+    }
+
     return (
       <Row
         selected={checked[index]}
       >
-        <Column
+        {/* <Column
           width="38px"
         >
           <Checkbox
@@ -71,7 +81,7 @@ class DicerRow extends React.Component {
           onClick={e => { this.props.onClick(item) }}
         >
           #{item.id}
-        </Column>
+        </Column> */}
         <Column
           width="80px"
           onClick={e => { this.props.onClick(item) }}
@@ -95,19 +105,19 @@ class DicerRow extends React.Component {
         <ColumnFlex
           onClick={e => { this.props.onClick(item) }}
         >
-          {item.attackType}
+          {renderAttack(item.attackType)}
         </ColumnFlex>
         <ColumnFlex
           onClick={e => { this.props.onClick(item) }}
         >
           <DiceImage
-            dice={item.diceType}
+            dice={'6'}
           />
         </ColumnFlex>
         <ColumnFlex
           onClick={e => { this.props.onClick(item) }}
         >
-          {item.chargeType}
+          {item.chargeType === 'BLUE' ? '파란 차지': '붉은 차지'}
         </ColumnFlex>
       </Row>
     )

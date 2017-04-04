@@ -4,7 +4,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        첫화면 뭐넣지
+        준비중입니다.
       </div>
     )
   }
